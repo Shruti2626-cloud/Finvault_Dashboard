@@ -133,6 +133,7 @@ const chartTooltipStyle = {
 };
 
 const DashboardPage = () => {
+  const [activeAction, setActiveAction] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -150,16 +151,16 @@ const DashboardPage = () => {
   return (
     <div className="relative min-h-screen text-white overflow-hidden bg-black">
 
-      {/* 🌌 PREMIUM FINTECH BACKGROUND */}
+      {/* 🌌 VIBRANT FINTECH BACKGROUND */}
 <div className="absolute inset-0 -z-10 overflow-hidden">
 
-  {/* Gradient base */}
-  <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#020617] to-black" />
+  {/* Base gradient */}
+  <div className="absolute inset-0 bg-gradient-to-br from-[#1e1b4b] via-[#0f172a] to-[#020617]" />
 
-  {/* Glow orbs */}
-  <div className="absolute w-[600px] h-[600px] bg-purple-600/30 blur-[140px] rounded-full top-[-200px] left-[-200px]" />
-  <div className="absolute w-[500px] h-[500px] bg-blue-500/30 blur-[140px] rounded-full bottom-[-150px] right-[-150px]" />
-  <div className="absolute w-[400px] h-[400px] bg-indigo-500/20 blur-[120px] rounded-full top-[40%] left-[50%]" />
+  {/* Glow blobs */}
+  <div className="absolute w-[600px] h-[600px] bg-purple-600/40 blur-[150px] rounded-full top-[-200px] left-[-200px]" />
+  <div className="absolute w-[500px] h-[500px] bg-blue-500/40 blur-[150px] rounded-full bottom-[-150px] right-[-150px]" />
+  <div className="absolute w-[400px] h-[400px] bg-indigo-500/30 blur-[120px] rounded-full top-[40%] left-[50%]" />
 
   {/* Subtle grid overlay */}
   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0,transparent_70%)]" />
@@ -187,30 +188,27 @@ const DashboardPage = () => {
         </div>
 
         {/* 🚀 QUICK ACTIONS (NEW) */}
-        <motion.div variants={item} className="glass-card p-6">
+        <motion.div variants={item} className="glass-card p-6 transition hover:scale-[1.02] hover:shadow-xl">
           <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { title: "Send Money", subtitle: "Transfer funds", color: "text-blue-500" },
-              { title: "Deposit", subtitle: "Add funds", color: "text-green-500" },
-              { title: "Withdraw", subtitle: "Cash out", color: "text-orange-500" },
-              { title: "Exchange", subtitle: "Convert currency", color: "text-purple-500" },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="glass-card-hover p-4 rounded-xl border border-white/10 hover:bg-white/5 transition"
-              >
-                <div className="relative flex items-center justify-center mb-3">
-  <div className={`absolute inset-0 blur-xl opacity-30 ${item.color}`} />
-  <div className={`relative h-10 w-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md ${item.color}`}>
-    ●
+           {[
+  { title: "Send Money", subtitle: "Transfer funds", color: "from-blue-500 to-indigo-500" },
+  { title: "Deposit", subtitle: "Add funds", color: "from-green-500 to-emerald-500" },
+  { title: "Withdraw", subtitle: "Cash out", color: "from-orange-500 to-red-500" },
+  { title: "Exchange", subtitle: "Convert currency", color: "from-purple-500 to-pink-500" },
+].map((item, i) => (
+  <div
+    key={i}
+    onClick={() => setActiveAction(item.title)}
+    className={`cursor-pointer glass-card-hover p-4 rounded-xl border border-white/10 transition hover:scale-105 bg-gradient-to-br ${item.color}/20`}
+  >
+    {/* KEEP YOUR EXISTING ICON PART */}
+    
+    <p className="font-semibold">{item.title}</p>
+    <p className="text-sm text-muted-foreground">{item.subtitle}</p>
   </div>
-</div>
-                <p className="font-semibold">{item.title}</p>
-                <p className="text-sm text-muted-foreground">{item.subtitle}</p>
-              </div>
-            ))}
+))}
           </div>
         </motion.div>
 
@@ -228,7 +226,7 @@ const DashboardPage = () => {
             </ResponsiveContainer>
           </motion.div>
 
-          <motion.div variants={item} className="glass-card p-6">
+          <motion.div variants={item} className="glass-card p-6 transition hover:scale-[1.02] hover:shadow-xl">
             <h3 className="mb-6">Expense Trend</h3>
             <ResponsiveContainer width="100%" height={280}>
               <AreaChart data={expenseTrend}>
@@ -242,7 +240,8 @@ const DashboardPage = () => {
         </div>
 
         {/* 🥧 PIE CHART (UPDATED ANIMATION) */}
-        <motion.div variants={item} className="glass-card p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <motion.div variants={item} className="glass-card p-6 transition hover:scale-[1.02] hover:shadow-xl">
           <h3 className="mb-6">Spending Breakdown</h3>
           <ResponsiveContainer width="100%" height={320}>
             <PieChart>
@@ -270,7 +269,7 @@ const DashboardPage = () => {
           </ResponsiveContainer>
         </motion.div>
 
-        <motion.div variants={item} className="glass-card p-6">
+        <motion.div variants={item} className="glass-card p-6 transition hover:scale-[1.02] hover:shadow-xl">
   <h3 className="text-lg font-semibold mb-4">AI Insights</h3>
 
   <div className="space-y-3">
@@ -293,6 +292,29 @@ const DashboardPage = () => {
     </div>
   </div>
 </motion.div>
+</div>
+
+{activeAction && (
+  <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+    <div className="bg-gray-900 p-6 rounded-xl w-[350px] glass-card">
+      <h2 className="text-lg font-semibold mb-4">{activeAction}</h2>
+
+      <div className="space-y-3">
+        <input className="w-full p-2 rounded bg-white/10" placeholder="Enter amount" />
+        <input className="w-full p-2 rounded bg-white/10" placeholder="Select account" />
+      </div>
+
+      <div className="flex justify-end gap-2 mt-4">
+        <button onClick={() => setActiveAction(null)} className="px-4 py-2 bg-white/10 rounded">
+          Cancel
+        </button>
+        <button className="px-4 py-2 bg-blue-500 rounded">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
       </motion.div>
     </div>
