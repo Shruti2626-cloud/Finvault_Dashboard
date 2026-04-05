@@ -1,5 +1,5 @@
 import { useApp } from "@/contexts/AppContext";
-import { Bell, Search } from "lucide-react";
+import { Bell, Search, Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -37,7 +37,7 @@ const TopNavbar = () => {
             <input
               type="text"
               placeholder="Search transactions, invoices, or reports..."
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-gray-100 dark:bg-white/5 text-black dark:text-white backdrop-blur-md border border-gray-300 dark:border-white/10 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-secondary backdrop-blur-md border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
           </div>
         </div>
@@ -45,12 +45,16 @@ const TopNavbar = () => {
         {/* RIGHT SIDE */}
         <div className="flex items-center gap-4 ml-6">
 
-  {/* 🌙 THEME TOGGLE */}
+  {/* 🌙☀️ THEME TOGGLE */}
   <button
     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-    className="h-9 px-3 rounded-lg bg-secondary/50 border border-border text-sm transition hover:scale-105"
+    className="h-9 w-9 rounded-lg bg-secondary/50 border border-border flex items-center justify-center text-sm transition hover:scale-105 hover:bg-secondary"
   >
-    {theme === "dark" ? "🌙" : "☀️"}
+    {theme === "dark" ? (
+      <Moon className="h-4 w-4 text-muted-foreground" />
+    ) : (
+      <Sun className="h-4 w-4 text-amber-500" />
+    )}
   </button>
 
           {/* ROLE SWITCH */}
@@ -70,7 +74,7 @@ const TopNavbar = () => {
                 )}
                 <span
                   className={`relative z-10 capitalize ${
-                    role === r ? "text-white" : "text-muted-foreground"
+                    role === r ? "text-primary-foreground font-semibold" : "text-muted-foreground"
                   }`}
                 >
                   {r}
@@ -95,13 +99,13 @@ const TopNavbar = () => {
             onClick={() => navigate("/profile")}
             className="flex items-center gap-2 cursor-pointer"
           >
-            <div className="h-8 w-8 rounded-full flex items-center justify-center bg-blue-500 text-black dark:text-white">
+            <div className="h-8 w-8 rounded-full flex items-center justify-center bg-blue-500 text-white font-semibold text-sm">
               A
             </div>
 
             <div>
-              <p className="text-sm font-semibold">Arjun Mehta</p>
-              <span className="text-xs text-gray-400 capitalize">
+              <p className="text-sm font-semibold text-foreground">Arjun Mehta</p>
+              <span className="text-xs text-muted-foreground capitalize">
                 {role}
               </span>
             </div>
@@ -112,15 +116,15 @@ const TopNavbar = () => {
 
       {/* 🔔 NOTIFICATION MODAL */}
       {showNotifications && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/40 dark:bg-black/60 flex items-center justify-center z-50">
 
           <div className="glass-card p-6 w-[400px] max-h-[500px] overflow-y-auto">
 
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Notifications</h2>
+              <h2 className="text-lg font-semibold text-foreground">Notifications</h2>
               <button
                 onClick={() => setShowNotifications(false)}
-                className="text-sm text-muted-foreground"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 Close
               </button>
@@ -130,10 +134,10 @@ const TopNavbar = () => {
               {notifications.map((n) => (
                 <div
                   key={n.id}
-                  className="p-3 rounded-lg bg-white/5 border border-white/10 flex justify-between items-start"
+                  className="p-3 rounded-lg bg-secondary/50 border border-border flex justify-between items-start"
                 >
                   <div>
-                    <p className="text-sm">{n.text}</p>
+                    <p className="text-sm text-foreground">{n.text}</p>
                     <span className="text-xs text-muted-foreground">
                       {n.date}
                     </span>
@@ -142,8 +146,8 @@ const TopNavbar = () => {
                   <span
                     className={`text-xs font-semibold ${
                       n.type === "credit"
-                        ? "text-green-400"
-                        : "text-red-400"
+                        ? "text-success"
+                        : "text-destructive"
                     }`}
                   >
                     {n.type}

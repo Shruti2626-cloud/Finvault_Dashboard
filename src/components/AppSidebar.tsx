@@ -9,6 +9,9 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
+  FileText,
+  Landmark,
+  CreditCard,
 } from "lucide-react";
 import { useApp } from "@/contexts/AppContext";
 import { cn } from "@/lib/utils";
@@ -18,6 +21,9 @@ const navItems = [
   { to: "/transactions", icon: ArrowLeftRight, label: "Transactions" },
   { to: "/analytics", icon: BarChart3, label: "Analytics" },
   { to: "/investments", icon: TrendingUp, label: "Investments" },
+  { to: "/loans", icon: Landmark, label: "Loans" },
+  { to: "/cards", icon: CreditCard, label: "Cards" },
+  { to: "/reports", icon: FileText, label: "Reports" },
   { to: "/profile", icon: User, label: "Profile" },
   { to: "/settings", icon: Settings, label: "Settings" },
 ];

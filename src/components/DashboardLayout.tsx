@@ -8,7 +8,7 @@ const DashboardLayout = () => {
   const { sidebarOpen } = useApp();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background transition-colors duration-300">
       <AppSidebar />
       <motion.div
         initial={false}
