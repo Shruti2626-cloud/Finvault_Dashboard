@@ -13,7 +13,7 @@ const TopNavbar = () => {
           <input
             type="text"
             placeholder="Search transactions, invoices, or reports..."
-            className="h-9 w-64 rounded-lg border border-border bg-secondary/50 pl-9 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all"
+            className="w-full px-4 py-2 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       </div>
