@@ -192,7 +192,12 @@ const DashboardPage = () => {
                 key={i}
                 className="glass-card-hover p-4 rounded-xl border border-white/10 hover:bg-white/5 transition"
               >
-                <div className={`text-2xl mb-2 ${item.color}`}>⬤</div>
+                <div className="relative flex items-center justify-center mb-3">
+  <div className={`absolute inset-0 blur-xl opacity-30 ${item.color}`} />
+  <div className={`relative h-10 w-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md ${item.color}`}>
+    ●
+  </div>
+</div>
                 <p className="font-semibold">{item.title}</p>
                 <p className="text-sm text-muted-foreground">{item.subtitle}</p>
               </div>
@@ -255,6 +260,30 @@ const DashboardPage = () => {
             </PieChart>
           </ResponsiveContainer>
         </motion.div>
+
+        <motion.div variants={item} className="glass-card p-6">
+  <h3 className="text-lg font-semibold mb-4">AI Insights</h3>
+
+  <div className="space-y-3">
+    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+      <p className="text-sm text-muted-foreground">
+        You are likely to spend more on <span className="text-red-400 font-semibold">Food</span> next month.
+      </p>
+    </div>
+
+    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+      <p className="text-sm text-muted-foreground">
+        Your expenses increased by <span className="text-yellow-400 font-semibold">8%</span> compared to last month.
+      </p>
+    </div>
+
+    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+      <p className="text-sm text-muted-foreground">
+        Consider reducing <span className="text-purple-400 font-semibold">subscription spending</span> to save more.
+      </p>
+    </div>
+  </div>
+</motion.div>
 
       </motion.div>
     </div>
