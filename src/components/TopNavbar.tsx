@@ -12,7 +12,7 @@ const TopNavbar = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search transactions, invoices, or reports..."
             className="h-9 w-64 rounded-lg border border-border bg-secondary/50 pl-9 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all"
           />
         </div>
@@ -24,7 +24,7 @@ const TopNavbar = () => {
             <button
               key={r}
               onClick={() => setRole(r)}
-              className="relative px-3 py-1.5 text-xs font-medium rounded-md capitalize transition-colors"
+              className="w-full px-4 py-2 rounded-lg bg-white/5 backdrop-blur-md border border-white/10 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {role === r && (
                 <motion.div
