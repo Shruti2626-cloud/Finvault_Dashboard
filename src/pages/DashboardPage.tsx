@@ -30,16 +30,21 @@ import {
 
 const container = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 24, scale: 0.97 },
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
@@ -83,8 +88,10 @@ const StatCard = ({
   <motion.div
     variants={item}
     whileHover={{ y: -5 }}
-    className={`glass-card-hover p-6 ${variant}`}
+    className={`glass-card glass-card-hover p-6 ${variant} relative overflow-hidden`}
   >
+    <div className="absolute inset-0 opacity-0 hover:opacity-100 transition duration-500 bg-gradient-to-r from-purple-500/10 to-blue-500/10 blur-2xl"></div>
+
     <div className="flex items-center justify-between mb-5">
       <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
         {title}
@@ -163,12 +170,37 @@ const DashboardPage = () => {
           </p>
         </div>
 
+        {/* 💳 STAT CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <StatCard title="Total Balance" value={192000} change="+9.7%" positive icon={Wallet} variant="stat-card-green" />
           <StatCard title="Income" value={174000} change="+12.3%" positive icon={TrendingUp} variant="stat-card-blue" />
           <StatCard title="Expenses" value={26369} change="-8.1%" positive={false} icon={TrendingDown} variant="stat-card-red" />
         </div>
 
+        {/* 🚀 QUICK ACTIONS (NEW) */}
+        <motion.div variants={item} className="glass-card p-6">
+          <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { title: "Send Money", subtitle: "Transfer funds", color: "text-blue-500" },
+              { title: "Deposit", subtitle: "Add funds", color: "text-green-500" },
+              { title: "Withdraw", subtitle: "Cash out", color: "text-orange-500" },
+              { title: "Exchange", subtitle: "Convert currency", color: "text-purple-500" },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="glass-card-hover p-4 rounded-xl border border-white/10 hover:bg-white/5 transition"
+              >
+                <div className={`text-2xl mb-2 ${item.color}`}>⬤</div>
+                <p className="font-semibold">{item.title}</p>
+                <p className="text-sm text-muted-foreground">{item.subtitle}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* 📈 CHARTS */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <motion.div variants={item} className="glass-card p-6">
             <h3 className="mb-6">Balance Trend</h3>
@@ -195,20 +227,35 @@ const DashboardPage = () => {
           </motion.div>
         </div>
 
+        {/* 🥧 PIE CHART (UPDATED ANIMATION) */}
         <motion.div variants={item} className="glass-card p-6">
           <h3 className="mb-6">Spending Breakdown</h3>
           <ResponsiveContainer width="100%" height={320}>
             <PieChart>
-              <Pie data={spendingBreakdown} dataKey="value">
+              <Pie
+                data={spendingBreakdown}
+                dataKey="value"
+                cx="50%"
+                cy="50%"
+                outerRadius={110}
+                innerRadius={60}
+                isAnimationActive={true}
+                animationDuration={1200}
+              >
                 {spendingBreakdown.map((entry, i) => (
-                  <Cell key={i} fill={entry.color} />
+                  <Cell
+                    key={i}
+                    fill={entry.color}
+                    style={{ animationDelay: `${i * 200}ms` }}
+                  />
                 ))}
               </Pie>
               <Tooltip contentStyle={chartTooltipStyle} />
               <Legend />
             </PieChart>
           </ResponsiveContainer>
-        </motion.div>   
+        </motion.div>
+
       </motion.div>
     </div>
   );
