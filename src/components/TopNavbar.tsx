@@ -6,7 +6,7 @@ import { useState } from "react";
 import { transactions } from "@/lib/mockData";
 
 const TopNavbar = () => {
-  const { role, setRole } = useApp();
+  const { role, setRole, theme, setTheme } = useApp();
   const navigate = useNavigate();
 
   // ✅ Notification state
@@ -37,13 +37,21 @@ const TopNavbar = () => {
             <input
               type="text"
               placeholder="Search transactions, invoices, or reports..."
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-gray-100 dark:bg-white/5 text-black dark:text-white backdrop-blur-md border border-gray-300 dark:border-white/10 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </div>
 
         {/* RIGHT SIDE */}
         <div className="flex items-center gap-4 ml-6">
+
+  {/* 🌙 THEME TOGGLE */}
+  <button
+    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+    className="h-9 px-3 rounded-lg bg-secondary/50 border border-border text-sm transition hover:scale-105"
+  >
+    {theme === "dark" ? "🌙" : "☀️"}
+  </button>
 
           {/* ROLE SWITCH */}
           <div className="flex items-center bg-secondary rounded-lg p-0.5 relative">
@@ -87,7 +95,7 @@ const TopNavbar = () => {
             onClick={() => navigate("/profile")}
             className="flex items-center gap-2 cursor-pointer"
           >
-            <div className="h-8 w-8 rounded-full flex items-center justify-center bg-blue-500 text-white">
+            <div className="h-8 w-8 rounded-full flex items-center justify-center bg-blue-500 text-black dark:text-white">
               A
             </div>
 

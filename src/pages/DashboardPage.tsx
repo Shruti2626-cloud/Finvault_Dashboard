@@ -149,23 +149,26 @@ const DashboardPage = () => {
   }
 
   return (
-    <div className="relative min-h-screen text-white overflow-hidden bg-transparent">
+  <div className="relative min-h-screen text-black dark:text-white overflow-hidden bg-white dark:bg-transparent">
 
-      {/* 🌌 VIBRANT FINTECH BACKGROUND */}
-<div className="absolute inset-0 -z-10 overflow-hidden">
+    {/* 🌌 BACKGROUND */}
+    <div className="absolute inset-0 -z-10 overflow-hidden">
 
-  {/* Base gradient */}
-  <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#0b1f3a] to-[#020617]" />
+      {/* 🌙 DARK MODE GRADIENT */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#0b1f3a] to-[#020617] hidden dark:block" />
 
-  {/* Glow blobs */}
-  <div className="absolute w-[600px] h-[600px] bg-blue-600/30 blur-[150px] rounded-full top-[-200px] left-[-200px]" />
-  <div className="absolute w-[500px] h-[500px] bg-cyan-500/30 blur-[150px] rounded-full bottom-[-150px] right-[-150px]" />
-  <div className="absolute w-[400px] h-[400px] bg-sky-500/20 blur-[120px] rounded-full top-[40%] left-[50%]" />
+      {/* ☀️ LIGHT MODE BACKGROUND */}
+      <div className="absolute inset-0 bg-white dark:hidden" />
 
-  {/* Subtle grid overlay */}
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0,transparent_70%)]" />
+      {/* Glow blobs (ONLY visible in dark mode) */}
+      <div className="absolute w-[600px] h-[600px] bg-blue-600/30 blur-[150px] rounded-full top-[-200px] left-[-200px] hidden dark:block" />
+      <div className="absolute w-[500px] h-[500px] bg-cyan-500/30 blur-[150px] rounded-full bottom-[-150px] right-[-150px] hidden dark:block" />
+      <div className="absolute w-[400px] h-[400px] bg-sky-500/20 blur-[120px] rounded-full top-[40%] left-[50%] hidden dark:block" />
 
-</div>
+      {/* Subtle grid overlay (only dark) */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0,transparent_70%)] hidden dark:block" />
+
+    </div>
 
       <motion.div
         variants={container}
@@ -294,12 +297,12 @@ const DashboardPage = () => {
 </div>
 
 {activeAction && (
-  <div className="fixed inset-0 bg-transparent/60 flex items-center justify-center z-50">
-    <div className="bg-transparent p-6 rounded-xl w-[350px] glass-card">
+  <div className="fixed inset-0 bg-white dark:bg-transparent/60 flex items-center justify-center z-50">
+    <div className="bg-white dark:bg-transparent p-6 rounded-xl w-[350px] glass-card">
       <h2 className="text-lg font-semibold mb-4">{activeAction}</h2>
 
       <div className="space-y-3">
-        <input className="w-full p-2 rounded bg-white/10" placeholder="Enter amount" />
+        <input className="w-full p-2 rounded bg-gray-100 dark:bg-white/10 text-black dark:text-white border border-gray-300 dark:border-white/10" placeholder="Enter amount" />
         <input className="w-full p-2 rounded bg-white/10" placeholder="Select account" />
       </div>
 
