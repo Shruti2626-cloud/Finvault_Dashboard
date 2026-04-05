@@ -104,13 +104,15 @@ const StatCard = ({
 );
 
 const chartTooltipStyle = {
-  backgroundColor: "hsl(228 15% 10%)",
-  border: "1px solid hsl(228 12% 20%)",
+  backgroundColor: "rgba(255, 255, 255, 0.92)",
+  border: "1px solid rgba(255, 255, 255, 0.3)",
   borderRadius: "12px",
-  color: "hsl(210 20% 95%)",
+  color: "#1a1a2e",
   fontSize: "12px",
+  fontWeight: 600,
   padding: "10px 14px",
-  boxShadow: "0 8px 32px hsl(0 0% 0% / 0.4)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.15)",
+  backdropFilter: "blur(8px)",
 };
 
 const DashboardPage = () => {
