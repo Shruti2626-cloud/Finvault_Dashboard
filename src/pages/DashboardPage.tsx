@@ -8,8 +8,6 @@ import {
   ArrowDownRight,
 } from "lucide-react";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -34,26 +32,36 @@ const container = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
+
 const item = {
   hidden: { opacity: 0, y: 24, scale: 0.97 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 const AnimatedNumber = ({ target }: { target: number }) => {
   const [val, setVal] = useState(0);
+
   useEffect(() => {
     let frame: number;
     const start = performance.now();
     const dur = 1400;
+
     const tick = (now: number) => {
       const p = Math.min((now - start) / dur, 1);
       const eased = 1 - Math.pow(1 - p, 3);
       setVal(Math.floor(eased * target));
       if (p < 1) frame = requestAnimationFrame(tick);
     };
+
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
   }, [target]);
+
   return <>{formatCurrency(val)}</>;
 };
 
@@ -74,18 +82,22 @@ const StatCard = ({
 }) => (
   <motion.div
     variants={item}
-    whileHover={{ y: -5, transition: { duration: 0.3 } }}
+    whileHover={{ y: -5 }}
     className={`glass-card-hover p-6 ${variant}`}
   >
     <div className="flex items-center justify-between mb-5">
-      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</span>
+      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        {title}
+      </span>
       <div className="h-11 w-11 rounded-xl bg-secondary/80 flex items-center justify-center backdrop-blur-sm">
         <Icon className="h-5 w-5 text-foreground/80" />
       </div>
     </div>
+
     <p className="text-3xl font-extrabold text-foreground tracking-tight">
       <AnimatedNumber target={value} />
     </p>
+
     <div className="flex items-center gap-1.5 mt-3">
       {positive ? (
         <div className="flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-success/10">
@@ -98,7 +110,9 @@ const StatCard = ({
           <span className="text-xs font-semibold text-destructive">{change}</span>
         </div>
       )}
-      <span className="text-xs text-muted-foreground ml-1">vs last month</span>
+      <span className="text-xs text-muted-foreground ml-1">
+        vs last month
+      </span>
     </div>
   </motion.div>
 );
@@ -107,12 +121,8 @@ const chartTooltipStyle = {
   backgroundColor: "rgba(255, 255, 255, 0.92)",
   border: "1px solid rgba(255, 255, 255, 0.3)",
   borderRadius: "12px",
-  color: "#1a1a2e",
   fontSize: "12px",
-  fontWeight: 600,
   padding: "10px 14px",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.15)",
-  backdropFilter: "blur(8px)",
 };
 
 const DashboardPage = () => {
@@ -131,12 +141,13 @@ const DashboardPage = () => {
   }
 
   return (
-    <>
-      {/* Animated background orbs */}
-      <div className="dashboard-bg">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="orb orb-3" />
+    <div className="relative min-h-screen bg-gray-950 text-white overflow-hidden">
+
+      {/* 🌌 BACKGROUND */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute w-[500px] h-[500px] bg-purple-600 opacity-20 blur-[120px] rounded-full top-[-100px] left-[-100px]" />
+        <div className="absolute w-[400px] h-[400px] bg-blue-500 opacity-20 blur-[120px] rounded-full bottom-[-100px] right-[-100px]" />
+        <div className="absolute w-[300px] h-[300px] bg-indigo-500 opacity-20 blur-[120px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute" />
       </div>
 
       <motion.div
@@ -145,10 +156,12 @@ const DashboardPage = () => {
         animate="show"
         className="space-y-8 max-w-7xl mx-auto relative z-10"
       >
-        <motion.div variants={item} className="space-y-1">
-          <h1 className="text-3xl font-extrabold text-foreground tracking-tight">Dashboard</h1>
-          <p className="text-sm text-muted-foreground">Welcome back, Arjun</p>
-        </motion.div>
+        <div className="space-y-1">
+          <h1 className="text-3xl font-extrabold">Dashboard</h1>
+          <p className="text-sm text-muted-foreground">
+            Welcome back, Arjun
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <StatCard title="Total Balance" value={192000} change="+9.7%" positive icon={Wallet} variant="stat-card-green" />
@@ -158,60 +171,46 @@ const DashboardPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <motion.div variants={item} className="glass-card p-6">
-            <h3 className="text-sm font-semibold text-foreground mb-6">Balance Trend</h3>
+            <h3 className="mb-6">Balance Trend</h3>
             <ResponsiveContainer width="100%" height={280}>
               <AreaChart data={balanceTrend}>
-                <defs>
-                  <linearGradient id="balGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="hsl(160,84%,39%)" stopOpacity={0.25} />
-                    <stop offset="100%" stopColor="hsl(160,84%,39%)" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(228,12%,18%)" vertical={false} />
-                <XAxis dataKey="month" tick={{ fill: "hsl(215,15%,50%)", fontSize: 11 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: "hsl(215,15%,50%)", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v / 1000}k`} />
-                <Tooltip contentStyle={chartTooltipStyle} formatter={(v: number) => [formatCurrency(v), "Balance"]} />
-                <Area type="monotone" dataKey="balance" stroke="hsl(160,84%,39%)" strokeWidth={2.5} fill="url(#balGrad)" dot={false} />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip contentStyle={chartTooltipStyle} />
+                <Area dataKey="balance" stroke="#10b981" fillOpacity={0.2} fill="#10b981" />
               </AreaChart>
             </ResponsiveContainer>
           </motion.div>
 
           <motion.div variants={item} className="glass-card p-6">
-            <h3 className="text-sm font-semibold text-foreground mb-6">Expense Trend</h3>
+            <h3 className="mb-6">Expense Trend</h3>
             <ResponsiveContainer width="100%" height={280}>
               <AreaChart data={expenseTrend}>
-                <defs>
-                  <linearGradient id="expGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="hsl(0,72%,51%)" stopOpacity={0.2} />
-                    <stop offset="100%" stopColor="hsl(0,72%,51%)" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(228,12%,18%)" vertical={false} />
-                <XAxis dataKey="month" tick={{ fill: "hsl(215,15%,50%)", fontSize: 11 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: "hsl(215,15%,50%)", fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v / 1000}k`} />
-                <Tooltip contentStyle={chartTooltipStyle} formatter={(v: number) => [formatCurrency(v), "Expenses"]} />
-                <Area type="monotone" dataKey="expense" stroke="hsl(0,72%,51%)" strokeWidth={2.5} fill="url(#expGrad)" dot={false} />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip contentStyle={chartTooltipStyle} />
+                <Area dataKey="expense" stroke="#ef4444" fillOpacity={0.2} fill="#ef4444" />
               </AreaChart>
             </ResponsiveContainer>
           </motion.div>
         </div>
 
         <motion.div variants={item} className="glass-card p-6">
-          <h3 className="text-sm font-semibold text-foreground mb-6">Spending Breakdown</h3>
+          <h3 className="mb-6">Spending Breakdown</h3>
           <ResponsiveContainer width="100%" height={320}>
             <PieChart>
-              <Pie data={spendingBreakdown} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={110} innerRadius={60} paddingAngle={4} strokeWidth={0}>
+              <Pie data={spendingBreakdown} dataKey="value">
                 {spendingBreakdown.map((entry, i) => (
                   <Cell key={i} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip contentStyle={chartTooltipStyle} formatter={(v: number) => [formatCurrency(v)]} />
-              <Legend wrapperStyle={{ fontSize: "12px", color: "hsl(215,15%,55%)" }} />
+              <Tooltip contentStyle={chartTooltipStyle} />
+              <Legend />
             </PieChart>
           </ResponsiveContainer>
-        </motion.div>
+        </motion.div>   
       </motion.div>
-    </>
+    </div>
   );
 };
 
