@@ -155,12 +155,13 @@ const DashboardPage = () => {
 <div className="absolute inset-0 -z-10 overflow-hidden">
 
   {/* Base gradient */}
-  <div className="absolute inset-0 bg-gradient-to-br from-[#1e1b4b] via-[#0f172a] to-[#020617]" />
-
+  <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#0b1f3a] to-[#020617]" />
   {/* Glow blobs */}
-  <div className="absolute w-[600px] h-[600px] bg-purple-600/40 blur-[150px] rounded-full top-[-200px] left-[-200px]" />
-  <div className="absolute w-[500px] h-[500px] bg-blue-500/40 blur-[150px] rounded-full bottom-[-150px] right-[-150px]" />
-  <div className="absolute w-[400px] h-[400px] bg-indigo-500/30 blur-[120px] rounded-full top-[40%] left-[50%]" />
+<div className="absolute w-[600px] h-[600px] bg-blue-600/30 blur-[150px] rounded-full top-[-200px] left-[-200px]" />
+
+<div className="absolute w-[500px] h-[500px] bg-cyan-500/30 blur-[150px] rounded-full bottom-[-150px] right-[-150px]" />
+
+<div className="absolute w-[400px] h-[400px] bg-sky-500/20 blur-[120px] rounded-full top-[40%] left-[50%]" />
 
   {/* Subtle grid overlay */}
   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0,transparent_70%)]" />
