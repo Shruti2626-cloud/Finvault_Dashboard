@@ -135,9 +135,25 @@ const chartTooltipStyle = {
 const DashboardPage = () => {
   const [activeAction, setActiveAction] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-
+  const [activeSlices, setActiveSlices] = useState(0);
+  
   useEffect(() => {
     delay(800).then(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    let i = 0;
+
+    const interval = setInterval(() => {
+      i++;
+      setActiveSlices(i);
+
+      if (i >= spendingBreakdown.length) {
+        clearInterval(interval);
+      }
+    }, 200);
+
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
@@ -246,22 +262,21 @@ const DashboardPage = () => {
           <ResponsiveContainer width="100%" height={320}>
             <PieChart>
               <Pie
-                data={spendingBreakdown}
-                dataKey="value"
-                cx="50%"
-                cy="50%"
-                outerRadius={110}
-                innerRadius={60}
-                isAnimationActive={true}
-                animationDuration={1200}
-              >
-                {spendingBreakdown.map((entry, i) => (
-                  <Cell
-                    key={i}
-                    fill={entry.color}
-                    style={{ animationDelay: `${i * 200}ms` }}
-                  />
-                ))}
+               data={spendingBreakdown.slice(0, activeSlices)}
+               dataKey="value"
+               cx="50%"
+               cy="50%"
+               outerRadius={110}
+               innerRadius={60}
+               isAnimationActive={false}
+            >
+                {spendingBreakdown.slice(0, activeSlices).map((entry, i) => (
+               <Cell
+                 key={i}
+                 fill={entry.color}
+                 className="transition-transform duration-300 hover:scale-110"
+               />
+             ))}
               </Pie>
               <Tooltip contentStyle={chartTooltipStyle} />
               <Legend />
