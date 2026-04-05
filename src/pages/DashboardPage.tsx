@@ -148,20 +148,29 @@ const DashboardPage = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-gray-950 text-white overflow-hidden">
+    <div className="relative min-h-screen text-white overflow-hidden bg-black">
 
-      {/* 🌌 BACKGROUND */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute w-[500px] h-[500px] bg-purple-600 opacity-20 blur-[120px] rounded-full top-[-100px] left-[-100px]" />
-        <div className="absolute w-[400px] h-[400px] bg-blue-500 opacity-20 blur-[120px] rounded-full bottom-[-100px] right-[-100px]" />
-        <div className="absolute w-[300px] h-[300px] bg-indigo-500 opacity-20 blur-[120px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute" />
-      </div>
+      {/* 🌌 PREMIUM FINTECH BACKGROUND */}
+<div className="absolute inset-0 -z-10 overflow-hidden">
+
+  {/* Gradient base */}
+  <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#020617] to-black" />
+
+  {/* Glow orbs */}
+  <div className="absolute w-[600px] h-[600px] bg-purple-600/30 blur-[140px] rounded-full top-[-200px] left-[-200px]" />
+  <div className="absolute w-[500px] h-[500px] bg-blue-500/30 blur-[140px] rounded-full bottom-[-150px] right-[-150px]" />
+  <div className="absolute w-[400px] h-[400px] bg-indigo-500/20 blur-[120px] rounded-full top-[40%] left-[50%]" />
+
+  {/* Subtle grid overlay */}
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0,transparent_70%)]" />
+
+</div>
 
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="space-y-8 max-w-7xl mx-auto relative z-10"
+        className="space-y-10 max-w-7xl mx-auto relative z-10 px-4"
       >
         <div className="space-y-1">
           <h1 className="text-3xl font-extrabold">Dashboard</h1>
