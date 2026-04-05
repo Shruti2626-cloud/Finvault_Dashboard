@@ -1,9 +1,11 @@
 import { useApp } from "@/contexts/AppContext";
 import { Bell, Search } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const TopNavbar = () => {
   const { role, setRole } = useApp();
+  const navigate = useNavigate();
 
   return (
     <header className="h-16 border-b border-border flex items-center justify-between px-6 bg-card/50 backdrop-blur-md sticky top-0 z-30">
@@ -47,15 +49,19 @@ const TopNavbar = () => {
           </span>
         </button>
 
-        <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-sm font-bold text-foreground">
-            A
-          </div>
-          <div className="hidden md:block">
-            <p className="text-sm font-medium text-foreground leading-none">Arjun Mehta</p>
-            <p className="text-xs text-muted-foreground capitalize">{role}</p>
-          </div>
-        </div>
+        <div
+  onClick={() => navigate("/profile")}
+  className="flex items-center gap-2 cursor-pointer"
+>
+  <div className="h-8 w-8 rounded-full flex items-center justify-center bg-blue-500 text-white">
+    A
+  </div>
+
+  <div>
+    <p className="text-sm font-semibold">Arjun Mehta</p>
+    <span className="text-xs text-gray-400">Viewer</span>
+  </div>
+</div>
       </div>
     </header>
   );
