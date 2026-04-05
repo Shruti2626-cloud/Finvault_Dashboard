@@ -86,7 +86,7 @@
   }
 
   .glass-card-hover {
-    @apply glass-card transition-all duration-400 ease-out;
+    @apply glass-card transition-all duration-300 ease-out;
   }
 
   .glass-card-hover:hover {
