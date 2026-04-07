@@ -130,8 +130,8 @@ The project focuses on **frontend architecture, UI/UX design, and state manageme
 ## ⚙️ Installation & Setup
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd finvault-dashboard
+git clone https://github.com/Shruti2626-cloud/Finvault_Dashboard.git
+cd Finvault_Dashboard
 npm install
 npm run dev
 ```
